@@ -17,3 +17,6 @@ except ImportError:
 class ETreeNZBParser(BaseETreeNZBParser):
     def get_etree_iter(self, xml, et=etree):
         return iter(et.iterparse(StringIO(xml), events=("start", "end")))
+    
+    def get_etree_module(self, et=etree):
+        return et

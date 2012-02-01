@@ -67,7 +67,17 @@ argument::
     files = nzb_parser.parse('<?xml ... my nzb file here ... </nzb>')
 
 
-This will return a list of ``NZBFiles`` for you to use.
+This will return a list of ``NZBFiles`` for you to use.  You can then pass this
+list (or a list of NZBFiles populated by any other code) to one of two ``writeto``
+methods::
+
+	nzb_parser.writetofile(files, 'C:\\output.nzb')
+
+...which will write out an NZB file or:: 
+
+	nzbstring = nzb_parser.writetostring(files)
+
+...which will return the NZB-formatted XML as a string.
 
 
 NZBFile Objects
@@ -114,8 +124,8 @@ on how to retrieve a part of a file.  Here's what you can find on an
 Example
 --------
 
-In this example, we will grab an Ubuntu NZB and parse the file, printing out
-some information about each file and its segments::
+In this example, we will grab an Ubuntu NZB and parse the file, print out
+some information about each file and its segments, and write it back out::
 
     from pynzb import nzb_parser
     from urllib2 import urlopen
@@ -133,3 +143,6 @@ some information about each file and its segments::
             print '    ' + segment.message_id
         if len(nzb_file.segments) > 2:
             print '    ...'
+    
+    #Write the NZB to the hard-drive:
+    nzb_parser.writetofile(files, 'C:\\sample-ubuntu-nzb.nzb')
